@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>The Shy Dock</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict/>
+	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>com.apple.security.app-sandbox</key>
+	<false/>
+	<key>com.apple.security.scripting-targets</key>
+	<dict>
+		<key>com.apple.dock</key>
+		<array>
+			<string>com.apple.mail.compose</string>
+		</array>
+	</dict>
+	<key>com.apple.security.temporary-exception.apple-events</key>
+	<array>
+		<string>com.apple.systemevents</string>
+	</array>
+</dict>
+</plist>
