@@ -13,7 +13,7 @@
 		2931C45B2C8C3B0F0074F55D /* Dock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45A2C8C3B0F0074F55D /* Dock.swift */; };
 		2931C45E2C8C3B0F0074F560 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45C2C8C3B0F0074F55E /* MenuBarManager.swift */; };
 		2931C45H2C8C3B0F0074F562 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45G2C8C3B0F0074F560 /* SettingsWindow.swift */; };
-		2931C45I2C8C3B0F0074F562 /* DockAway/Utils/Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45H2C8C3B0F0074F561 /* DockAway/Utils/Constants.swift */; };
+		2931C45I2C8C3B0F0074F562 /* The Shy Dock/Utils/Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45H2C8C3B0F0074F561 /* The Shy Dock/Utils/Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,11 +22,11 @@
 		2931C44B2C8BE2BE0074F55D /* TheShyDockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheShyDockApp.swift; sourceTree = "<group>"; };
 		2931C44F2C8BE2C00074F55D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2931C4522C8BE2C00074F55D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2931C4542C8BE2C00074F55D /* DockAway.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DockAway.entitlements; sourceTree = "<group>"; };
+		2931C4542C8BE2C00074F55D /* The Shy Dock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "The Shy Dock.entitlements"; sourceTree = "<group>"; };
 		2931C45A2C8C3B0F0074F55D /* Dock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Dock.swift; path = Utils/Dock.swift; sourceTree = "<group>"; };
 		2931C45C2C8C3B0F0074F55E /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarManager.swift; path = Utils/MenuBarManager.swift; sourceTree = "<group>"; };
 		2931C45G2C8C3B0F0074F560 /* SettingsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsWindow.swift; path = Utils/SettingsWindow.swift; sourceTree = "<group>"; };
-		2931C45H2C8C3B0F0074F561 /* DockAway/Utils/Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockAway/Utils/Constants.swift; sourceTree = "<group>"; };
+		2931C45H2C8C3B0F0074F561 /* The Shy Dock/Utils/Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "The Shy Dock/Utils/Constants.swift"; sourceTree = "<group>"; };
 		29D9C1732E1F654800CC366F /* TheShyDoc.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TheShyDoc.icon; path = ../../../Documents/TheShyDoc.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,10 +68,10 @@
 				2931C45C2C8C3B0F0074F55E /* MenuBarManager.swift */,
 				2931C45G2C8C3B0F0074F560 /* SettingsWindow.swift */,
 				2931C44F2C8BE2C00074F55D /* Assets.xcassets */,
-				2931C4542C8BE2C00074F55D /* DockAway.entitlements */,
+				2931C4542C8BE2C00074F55D /* The Shy Dock.entitlements */,
 				2931C4512C8BE2C00074F55D /* Preview Content */,
 			);
-			path = DockAway;
+			path = "The Shy Dock";
 			sourceTree = "<group>";
 		};
 		2931C4512C8BE2C00074F55D /* Preview Content */ = {
@@ -85,7 +85,7 @@
 		29D9C1712E1111F500CC366F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				2931C45H2C8C3B0F0074F561 /* DockAway/Utils/Constants.swift */,
+				2931C45H2C8C3B0F0074F561 /* The Shy Dock/Utils/Constants.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2931C4432C8BE2BE0074F55D /* Build configuration list for PBXProject "DockAway" */;
+			buildConfigurationList = 2931C4432C8BE2BE0074F55D /* Build configuration list for PBXProject "The Shy Dock" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -171,7 +171,7 @@
 				2931C45B2C8C3B0F0074F55D /* Dock.swift in Sources */,
 				2931C45E2C8C3B0F0074F560 /* MenuBarManager.swift in Sources */,
 				2931C45H2C8C3B0F0074F562 /* SettingsWindow.swift in Sources */,
-				2931C45I2C8C3B0F0074F562 /* DockAway/Utils/Constants.swift in Sources */,
+				2931C45I2C8C3B0F0074F562 /* The Shy Dock/Utils/Constants.swift in Sources */,
 				2931C44C2C8BE2BE0074F55D /* TheShyDockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,17 +305,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = DockAway/DockAway.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "The Shy Dock/The Shy Dock.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DockAway/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"The Shy Dock/Preview Content\"";
 				DEVELOPMENT_TEAM = 8J92PKT59F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DockAway/Info.plist;
+				INFOPLIST_FILE = "The Shy Dock/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "The Shy Dock";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -339,17 +339,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = DockAway/DockAway.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "The Shy Dock/The Shy Dock.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DockAway/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"The Shy Dock/Preview Content\"";
 				DEVELOPMENT_TEAM = 8J92PKT59F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DockAway/Info.plist;
+				INFOPLIST_FILE = "The Shy Dock/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "The Shy Dock";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -370,7 +370,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2931C4432C8BE2BE0074F55D /* Build configuration list for PBXProject "DockAway" */ = {
+		2931C4432C8BE2BE0074F55D /* Build configuration list for PBXProject "The Shy Dock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2931C4552C8BE2C00074F55D /* Debug */,
