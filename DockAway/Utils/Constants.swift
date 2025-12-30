@@ -73,9 +73,8 @@ enum Constants {
     // MARK: - Status Messages
     enum StatusMessages {
         static let autoHideDisabled = "Auto-hide disabled"
-        static let dockBeingShy = "Dock is hidden"
-        static let dockVisible = "Toggle dock anytime with ⌘⌥D"
-        static let externalDisplayNotConnected = "No external display • dock hidden"
+        static let displayConnectedDockShowing = "Display connected • Dock showing"
+        static let noDisplayDockHidden = "No display • Dock hidden"
         static let permissionRequired = "⚠️ Accessibility permission required"
         static let permissionGranted = "✅ Accessibility permission granted"
     }
