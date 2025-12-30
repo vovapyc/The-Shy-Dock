@@ -1,4 +1,4 @@
-# DockAway v1.0 🚀
+# The Shy Dock v1.0 🚀
 
 A beautiful, dead-simple macOS menu bar utility that intelligently manages your Dock based on external monitor connections.
 
@@ -28,7 +28,7 @@ A beautiful, dead-simple macOS menu bar utility that intelligently manages your 
 - **Integrated Permission Status**: Shows permission requirements in the status area when needed
 
 ## 🔐 Permissions
-DockAway requires **Accessibility permissions** to control the dock. The app automatically:
+The Shy Dock requires **Accessibility permissions** to control the dock. The app automatically:
 - Detects when permissions are missing
 - Shows clear indicators in the menu bar and settings
 - Provides one-click access to System Preferences

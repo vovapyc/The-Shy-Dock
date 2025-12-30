@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2931C44C2C8BE2BE0074F55D /* DockAwayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C44B2C8BE2BE0074F55D /* DockAwayApp.swift */; };
+		2931C44C2C8BE2BE0074F55D /* TheShyDockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C44B2C8BE2BE0074F55D /* TheShyDockApp.swift */; };
 		2931C4502C8BE2C00074F55D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2931C44F2C8BE2C00074F55D /* Assets.xcassets */; };
 		2931C4532C8BE2C00074F55D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2931C4522C8BE2C00074F55D /* Preview Assets.xcassets */; };
 		2931C45B2C8C3B0F0074F55D /* Dock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2931C45A2C8C3B0F0074F55D /* Dock.swift */; };
@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		291822A72CD0B7420066F289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2931C4482C8BE2BE0074F55D /* The Shy Dock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Shy Dock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2931C44B2C8BE2BE0074F55D /* DockAwayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockAwayApp.swift; sourceTree = "<group>"; };
+		2931C44B2C8BE2BE0074F55D /* TheShyDockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheShyDockApp.swift; sourceTree = "<group>"; };
 		2931C44F2C8BE2C00074F55D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2931C4522C8BE2C00074F55D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2931C4542C8BE2C00074F55D /* DockAway.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DockAway.entitlements; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				291822A72CD0B7420066F289 /* Info.plist */,
-				2931C44B2C8BE2BE0074F55D /* DockAwayApp.swift */,
+				2931C44B2C8BE2BE0074F55D /* TheShyDockApp.swift */,
 				2931C45A2C8C3B0F0074F55D /* Dock.swift */,
 				2931C45C2C8C3B0F0074F55E /* MenuBarManager.swift */,
 				2931C45G2C8C3B0F0074F560 /* SettingsWindow.swift */,
@@ -172,7 +172,7 @@
 				2931C45E2C8C3B0F0074F560 /* MenuBarManager.swift in Sources */,
 				2931C45H2C8C3B0F0074F562 /* SettingsWindow.swift in Sources */,
 				2931C45I2C8C3B0F0074F562 /* DockAway/Utils/Constants.swift in Sources */,
-				2931C44C2C8BE2BE0074F55D /* DockAwayApp.swift in Sources */,
+				2931C44C2C8BE2BE0074F55D /* TheShyDockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
