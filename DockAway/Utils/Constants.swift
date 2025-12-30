@@ -145,6 +145,6 @@ enum Constants {
         static let accessibilityPermissionDenied = "Accessibility permission not granted"
         static let launchAtLoginFailed = "Failed to update launch at login"
         static let permissionPromptTitle = "Accessibility Permission Required"
-        static let permissionPromptMessage = "DockAway needs accessibility permission to control the dock. Please grant permission in System Preferences > Privacy & Security > Accessibility."
+        static let permissionPromptMessage = "The Shy Dock needs accessibility permission to control the dock. Please grant permission in System Preferences > Privacy & Security > Accessibility."
     }
 } 
