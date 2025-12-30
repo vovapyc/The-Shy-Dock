@@ -38,18 +38,23 @@ func setDockAutohide(_ hide: Bool) {
         print("Accessibility permission not granted")
         return
     }
-    
+
     let defaultsTask = Process()
-    defaultsTask.launchPath = "/usr/bin/defaults"
+    defaultsTask.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
     defaultsTask.arguments = ["write", "com.apple.dock", "autohide", "-bool", hide ? "true" : "false"]
-    defaultsTask.launch()
-    defaultsTask.waitUntilExit()
-    
-    let killTask = Process()
-    killTask.launchPath = "/usr/bin/killall"
-    killTask.arguments = ["Dock"]
-    killTask.launch()
-    killTask.waitUntilExit()
+
+    do {
+        try defaultsTask.run()
+        defaultsTask.waitUntilExit()
+
+        let killTask = Process()
+        killTask.executableURL = URL(fileURLWithPath: "/usr/bin/killall")
+        killTask.arguments = ["Dock"]
+        try killTask.run()
+        killTask.waitUntilExit()
+    } catch {
+        print("Failed to set dock autohide: \(error)")
+    }
 }
 
 /// Hides the Dock by enabling auto-hide

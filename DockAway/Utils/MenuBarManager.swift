@@ -16,14 +16,15 @@ final class MenuBarManager: NSObject, ObservableObject {
     
     private var statusItem: NSStatusItem?
     var settingsWindow: SettingsWindow?
-    
+    private var permissionCheckTimer: Timer?
+
     @Published var isExternalDisplayConnected = false
     @Published var isDockHidden = false
     @Published var minResolutionWidth = Constants.Defaults.minResolutionWidth
     @Published var minResolutionHeight = Constants.Defaults.minResolutionHeight
     @Published var launchAtLogin = Constants.Defaults.launchAtLogin
     @Published var hasAccessibilityPermission = false
-    
+
     private let userDefaults = UserDefaults.standard
     
     // MARK: - Initialization
@@ -37,12 +38,16 @@ final class MenuBarManager: NSObject, ObservableObject {
         updateDisplayStatus()
         
         // Check permission status periodically
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        permissionCheckTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
             self?.checkAccessibilityPermission()
         }
     }
-    
+
     deinit {
+        // Invalidate timer
+        permissionCheckTimer?.invalidate()
+        permissionCheckTimer = nil
+
         // Clean up display monitoring
         CGDisplayRemoveReconfigurationCallback(displayReconfigurationCallback, Unmanaged.passUnretained(self).toOpaque())
     }
