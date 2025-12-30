@@ -571,18 +571,12 @@ final class SettingsWindow: NSWindowController {
     
     private func updateStatusText() {
         guard let manager = manager else { return }
-        
+
         if !manager.hasAccessibilityPermission {
             statusLabel.stringValue = Constants.StatusMessages.permissionRequired
             statusLabel.textColor = .systemOrange
-        } else if !manager.isEnabled {
-            statusLabel.stringValue = Constants.StatusMessages.autoHideDisabled
-            statusLabel.textColor = .tertiaryLabelColor
-        } else if manager.isExternalDisplayConnected {
-            statusLabel.stringValue = manager.isDockHidden ? Constants.StatusMessages.dockBeingShy : Constants.StatusMessages.dockVisible
-            statusLabel.textColor = .tertiaryLabelColor
         } else {
-            statusLabel.stringValue = Constants.StatusMessages.externalDisplayNotConnected
+            statusLabel.stringValue = Constants.StatusMessages.dockVisible
             statusLabel.textColor = .tertiaryLabelColor
         }
     }
