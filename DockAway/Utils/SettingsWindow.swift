@@ -17,7 +17,6 @@ final class SettingsWindow: NSWindowController {
     private var cancellables = Set<AnyCancellable>()
     
     // UI Controls
-    private var enabledCheckbox: NSButton!
     private var launchAtLoginCheckbox: NSButton!
     private var useResolutionFilterCheckbox: NSButton!
     private var widthTextField: NSTextField!
@@ -85,14 +84,6 @@ final class SettingsWindow: NSWindowController {
             .store(in: &cancellables)
         
         // Observe settings changes
-        manager.$isEnabled
-            .sink { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
-            }
-            .store(in: &cancellables)
-        
         manager.$minResolutionWidth
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
@@ -225,11 +216,6 @@ final class SettingsWindow: NSWindowController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Create all checkboxes
-        enabledCheckbox = createCheckbox(
-            title: Constants.SettingsLabels.autoHideDock,
-            action: #selector(enabledChanged)
-        )
-        
         launchAtLoginCheckbox = createCheckbox(
             title: Constants.SettingsLabels.launchAtLogin,
             action: #selector(launchAtLoginChanged)
@@ -255,7 +241,7 @@ final class SettingsWindow: NSWindowController {
         resolutionContainer.addSubview(resolutionControls)
         
         // Add all views
-        [launchAtLoginCheckbox, enabledCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
+        [launchAtLoginCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
             view.addSubview($0)
         }
 
@@ -279,11 +265,7 @@ final class SettingsWindow: NSWindowController {
             launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             launchAtLoginCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            enabledCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
-            enabledCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            enabledCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            useResolutionFilterCheckbox.topAnchor.constraint(equalTo: enabledCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
+            useResolutionFilterCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
             useResolutionFilterCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             useResolutionFilterCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
@@ -476,13 +458,7 @@ final class SettingsWindow: NSWindowController {
     }
     
     // MARK: - Action Methods
-    
-    @objc private func enabledChanged() {
-        manager?.isEnabled = enabledCheckbox.state == .on
-        manager?.saveSettings()
-        updateStatusText()
-    }
-    
+
     @objc private func launchAtLoginChanged() {
         manager?.launchAtLogin = launchAtLoginCheckbox.state == .on
         manager?.saveSettings()
@@ -548,14 +524,10 @@ final class SettingsWindow: NSWindowController {
     func updateUI() {
         guard let manager = manager else { return }
 
-        enabledCheckbox.state = manager.isEnabled ? .on : .off
         launchAtLoginCheckbox.state = manager.launchAtLogin ? .on : .off
 
         let useResolutionFilter = manager.minResolutionWidth > 1 && manager.minResolutionHeight > 1
         useResolutionFilterCheckbox.state = useResolutionFilter ? .on : .off
-
-        // Disable resolution filter checkbox when auto-hide is disabled
-        useResolutionFilterCheckbox.isEnabled = manager.isEnabled
 
         if useResolutionFilter {
             widthTextField.stringValue = String(Int(manager.minResolutionWidth))
