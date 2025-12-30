@@ -548,7 +548,7 @@ final class SettingsWindow: NSWindowController {
             statusLabel.stringValue = Constants.StatusMessages.permissionRequired
             statusLabel.textColor = .systemOrange
         } else {
-            statusLabel.stringValue = Constants.StatusMessages.dockVisible
+            statusLabel.stringValue = "Toggle dock anytime with ⌘⌥D"
             statusLabel.textColor = .tertiaryLabelColor
         }
     }

@@ -161,9 +161,9 @@ final class MenuBarManager: NSObject, ObservableObject {
         if !hasAccessibilityPermission {
             return Constants.StatusMessages.permissionRequired
         } else if isExternalDisplayConnected {
-            return isDockHidden ? Constants.StatusMessages.dockBeingShy : Constants.StatusMessages.dockVisible
+            return Constants.StatusMessages.displayConnectedDockShowing
         } else {
-            return Constants.StatusMessages.externalDisplayNotConnected
+            return Constants.StatusMessages.noDisplayDockHidden
         }
     }
     
