@@ -255,10 +255,10 @@ final class SettingsWindow: NSWindowController {
         resolutionContainer.addSubview(resolutionControls)
         
         // Add all views
-        [enabledCheckbox, launchAtLoginCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
+        [launchAtLoginCheckbox, enabledCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
             view.addSubview($0)
         }
-        
+
         // Setup constraints
         setupSettingsSectionConstraints(
             view: view,
@@ -275,15 +275,15 @@ final class SettingsWindow: NSWindowController {
         resolutionControls: NSView
     ) {
         NSLayoutConstraint.activate([
-            enabledCheckbox.topAnchor.constraint(equalTo: view.topAnchor),
-            enabledCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            enabledCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            launchAtLoginCheckbox.topAnchor.constraint(equalTo: enabledCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
+            launchAtLoginCheckbox.topAnchor.constraint(equalTo: view.topAnchor),
             launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             launchAtLoginCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            useResolutionFilterCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
+
+            enabledCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
+            enabledCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            enabledCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            useResolutionFilterCheckbox.topAnchor.constraint(equalTo: enabledCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
             useResolutionFilterCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             useResolutionFilterCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
@@ -547,13 +547,16 @@ final class SettingsWindow: NSWindowController {
     
     func updateUI() {
         guard let manager = manager else { return }
-        
+
         enabledCheckbox.state = manager.isEnabled ? .on : .off
         launchAtLoginCheckbox.state = manager.launchAtLogin ? .on : .off
-        
+
         let useResolutionFilter = manager.minResolutionWidth > 1 && manager.minResolutionHeight > 1
         useResolutionFilterCheckbox.state = useResolutionFilter ? .on : .off
-        
+
+        // Disable resolution filter checkbox when auto-hide is disabled
+        useResolutionFilterCheckbox.isEnabled = manager.isEnabled
+
         if useResolutionFilter {
             widthTextField.stringValue = String(Int(manager.minResolutionWidth))
             heightTextField.stringValue = String(Int(manager.minResolutionHeight))
@@ -561,7 +564,7 @@ final class SettingsWindow: NSWindowController {
             widthTextField.stringValue = Constants.SettingsLabels.widthPlaceholder
             heightTextField.stringValue = Constants.SettingsLabels.heightPlaceholder
         }
-        
+
         resolutionContainer.isHidden = !useResolutionFilter
         updateStatusText()
     }

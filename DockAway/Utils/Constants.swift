@@ -74,8 +74,8 @@ enum Constants {
     enum StatusMessages {
         static let autoHideDisabled = "Auto-hide disabled"
         static let dockBeingShy = "Dock is hidden"
-        static let dockVisible = "Dock is visible"
-        static let externalDisplayNotConnected = "No external display - dock hidden"
+        static let dockVisible = "Press ⌘⌥D to toggle dock"
+        static let externalDisplayNotConnected = "No external display • dock hidden"
         static let permissionRequired = "⚠️ Accessibility permission required"
         static let permissionGranted = "✅ Accessibility permission granted"
     }
@@ -105,10 +105,10 @@ enum Constants {
     
     // MARK: - Settings Labels
     enum SettingsLabels {
-        static let autoHideDock = "Show dock when external display connected"
+        static let autoHideDock = "Hide dock when no external display"
         static let launchAtLogin = "Launch at login"
-        static let highResolutionOnly = "Only trigger for high-resolution displays"
-        static let helpText = "When disabled, any external display will show the dock"
+        static let highResolutionOnly = "High-resolution displays only"
+        static let helpText = "When disabled, any external display will trigger"
         static let minimumResolution = "Minimum resolution:"
         static let permissionStatus = "Accessibility Permission:"
         static let permissionRequired = "Required for dock control"
