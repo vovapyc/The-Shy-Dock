@@ -19,7 +19,6 @@ final class MenuBarManager: NSObject, ObservableObject {
     
     @Published var isExternalDisplayConnected = false
     @Published var isDockHidden = false
-    @Published var isEnabled = Constants.Defaults.enabled
     @Published var minResolutionWidth = Constants.Defaults.minResolutionWidth
     @Published var minResolutionHeight = Constants.Defaults.minResolutionHeight
     @Published var launchAtLogin = Constants.Defaults.launchAtLogin
@@ -58,34 +57,29 @@ final class MenuBarManager: NSObject, ObservableObject {
     
     private func updateMenuBarIcon() {
         guard let statusItem = statusItem else { return }
-        
+
         statusItem.button?.title = ""
-        
+
         let symbolName: String
         let isDisabled: Bool
-        
+
         if !hasAccessibilityPermission {
             symbolName = Constants.SFSymbols.exclamationmarkTriangle
-            isDisabled = true
-        } else if !isEnabled {
-            symbolName = Constants.SFSymbols.dockRectangleSlash
             isDisabled = true
         } else {
             symbolName = isDockHidden ? Constants.SFSymbols.dockRectangleSlash : Constants.SFSymbols.dockRectangle
             isDisabled = false
         }
-        
+
         if let image = NSImage(systemSymbolName: symbolName, accessibilityDescription: Constants.App.name) {
             image.isTemplate = true
             statusItem.button?.image = image
             statusItem.button?.appearsDisabled = isDisabled
         }
-        
+
         let tooltipText: String
         if !hasAccessibilityPermission {
             tooltipText = Constants.Tooltips.permissionRequired
-        } else if !isEnabled {
-            tooltipText = Constants.Tooltips.disabled
         } else {
             tooltipText = isDockHidden ? Constants.Tooltips.hidden : Constants.Tooltips.visible
         }
@@ -125,13 +119,7 @@ final class MenuBarManager: NSObject, ObservableObject {
             toggleMenuItem.keyEquivalentModifierMask = Constants.KeyboardShortcuts.toggleDockModifiers
             toggleMenuItem.target = self
             menu.addItem(toggleMenuItem)
-            
-            // Enable/Disable automatic behavior
-            let enableMenuItemTitle = isEnabled ? Constants.MenuItems.disableAutoHide : Constants.MenuItems.enableAutoHide
-            let enableMenuItem = NSMenuItem(title: enableMenuItemTitle, action: #selector(toggleEnabled), keyEquivalent: "")
-            enableMenuItem.target = self
-            menu.addItem(enableMenuItem)
-            
+
             menu.addItem(NSMenuItem.separator())
         }
         
@@ -167,8 +155,6 @@ final class MenuBarManager: NSObject, ObservableObject {
     private func getStatusText() -> String {
         if !hasAccessibilityPermission {
             return Constants.StatusMessages.permissionRequired
-        } else if !isEnabled {
-            return Constants.StatusMessages.autoHideDisabled
         } else if isExternalDisplayConnected {
             return isDockHidden ? Constants.StatusMessages.dockBeingShy : Constants.StatusMessages.dockVisible
         } else {
@@ -196,17 +182,6 @@ final class MenuBarManager: NSObject, ObservableObject {
             self.updateDockStatus()
             self.refreshMenu()
         }
-    }
-    
-    @objc private func toggleEnabled() {
-        isEnabled.toggle()
-        saveSettings()
-        
-        if isEnabled {
-            updateDockBehavior()
-        }
-        
-        refreshMenu()
     }
     
     @objc private func toggleLaunchAtLogin() {
@@ -318,11 +293,11 @@ final class MenuBarManager: NSObject, ObservableObject {
     func updateDisplayStatus() {
         let wasConnected = isExternalDisplayConnected
         isExternalDisplayConnected = checkExternalDisplayConnected()
-        
-        if wasConnected != isExternalDisplayConnected && isEnabled {
+
+        if wasConnected != isExternalDisplayConnected {
             updateDockBehavior()
         }
-        
+
         updateDockStatus()
         refreshMenu()
     }
@@ -354,8 +329,6 @@ final class MenuBarManager: NSObject, ObservableObject {
     }
     
     private func updateDockBehavior() {
-        guard isEnabled else { return }
-        
         if isExternalDisplayConnected {
             showDock()
         } else {
@@ -370,14 +343,12 @@ final class MenuBarManager: NSObject, ObservableObject {
     // MARK: - Settings Management
     
     private func loadSettings() {
-        isEnabled = userDefaults.object(forKey: Constants.UserDefaultsKeys.enabled) as? Bool ?? Constants.Defaults.enabled
         minResolutionWidth = userDefaults.object(forKey: Constants.UserDefaultsKeys.minWidth) as? Double ?? Constants.Defaults.minResolutionWidth
         minResolutionHeight = userDefaults.object(forKey: Constants.UserDefaultsKeys.minHeight) as? Double ?? Constants.Defaults.minResolutionHeight
         launchAtLogin = userDefaults.object(forKey: Constants.UserDefaultsKeys.launchAtLogin) as? Bool ?? Constants.Defaults.launchAtLogin
     }
-    
+
     func saveSettings() {
-        userDefaults.set(isEnabled, forKey: Constants.UserDefaultsKeys.enabled)
         userDefaults.set(minResolutionWidth, forKey: Constants.UserDefaultsKeys.minWidth)
         userDefaults.set(minResolutionHeight, forKey: Constants.UserDefaultsKeys.minHeight)
         userDefaults.set(launchAtLogin, forKey: Constants.UserDefaultsKeys.launchAtLogin)

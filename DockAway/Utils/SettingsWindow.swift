@@ -17,7 +17,6 @@ final class SettingsWindow: NSWindowController {
     private var cancellables = Set<AnyCancellable>()
     
     // UI Controls
-    private var enabledCheckbox: NSButton!
     private var launchAtLoginCheckbox: NSButton!
     private var useResolutionFilterCheckbox: NSButton!
     private var widthTextField: NSTextField!
@@ -85,14 +84,6 @@ final class SettingsWindow: NSWindowController {
             .store(in: &cancellables)
         
         // Observe settings changes
-        manager.$isEnabled
-            .sink { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
-            }
-            .store(in: &cancellables)
-        
         manager.$minResolutionWidth
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
@@ -225,11 +216,6 @@ final class SettingsWindow: NSWindowController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Create all checkboxes
-        enabledCheckbox = createCheckbox(
-            title: Constants.SettingsLabels.autoHideDock,
-            action: #selector(enabledChanged)
-        )
-        
         launchAtLoginCheckbox = createCheckbox(
             title: Constants.SettingsLabels.launchAtLogin,
             action: #selector(launchAtLoginChanged)
@@ -255,10 +241,10 @@ final class SettingsWindow: NSWindowController {
         resolutionContainer.addSubview(resolutionControls)
         
         // Add all views
-        [enabledCheckbox, launchAtLoginCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
+        [launchAtLoginCheckbox, useResolutionFilterCheckbox, helpLabel, resolutionContainer].forEach {
             view.addSubview($0)
         }
-        
+
         // Setup constraints
         setupSettingsSectionConstraints(
             view: view,
@@ -275,14 +261,10 @@ final class SettingsWindow: NSWindowController {
         resolutionControls: NSView
     ) {
         NSLayoutConstraint.activate([
-            enabledCheckbox.topAnchor.constraint(equalTo: view.topAnchor),
-            enabledCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            enabledCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            launchAtLoginCheckbox.topAnchor.constraint(equalTo: enabledCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
+            launchAtLoginCheckbox.topAnchor.constraint(equalTo: view.topAnchor),
             launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             launchAtLoginCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+
             useResolutionFilterCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: Constants.UI.itemSpacing),
             useResolutionFilterCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             useResolutionFilterCheckbox.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -476,13 +458,7 @@ final class SettingsWindow: NSWindowController {
     }
     
     // MARK: - Action Methods
-    
-    @objc private func enabledChanged() {
-        manager?.isEnabled = enabledCheckbox.state == .on
-        manager?.saveSettings()
-        updateStatusText()
-    }
-    
+
     @objc private func launchAtLoginChanged() {
         manager?.launchAtLogin = launchAtLoginCheckbox.state == .on
         manager?.saveSettings()
@@ -547,13 +523,12 @@ final class SettingsWindow: NSWindowController {
     
     func updateUI() {
         guard let manager = manager else { return }
-        
-        enabledCheckbox.state = manager.isEnabled ? .on : .off
+
         launchAtLoginCheckbox.state = manager.launchAtLogin ? .on : .off
-        
+
         let useResolutionFilter = manager.minResolutionWidth > 1 && manager.minResolutionHeight > 1
         useResolutionFilterCheckbox.state = useResolutionFilter ? .on : .off
-        
+
         if useResolutionFilter {
             widthTextField.stringValue = String(Int(manager.minResolutionWidth))
             heightTextField.stringValue = String(Int(manager.minResolutionHeight))
@@ -561,25 +536,19 @@ final class SettingsWindow: NSWindowController {
             widthTextField.stringValue = Constants.SettingsLabels.widthPlaceholder
             heightTextField.stringValue = Constants.SettingsLabels.heightPlaceholder
         }
-        
+
         resolutionContainer.isHidden = !useResolutionFilter
         updateStatusText()
     }
     
     private func updateStatusText() {
         guard let manager = manager else { return }
-        
+
         if !manager.hasAccessibilityPermission {
             statusLabel.stringValue = Constants.StatusMessages.permissionRequired
             statusLabel.textColor = .systemOrange
-        } else if !manager.isEnabled {
-            statusLabel.stringValue = Constants.StatusMessages.autoHideDisabled
-            statusLabel.textColor = .tertiaryLabelColor
-        } else if manager.isExternalDisplayConnected {
-            statusLabel.stringValue = manager.isDockHidden ? Constants.StatusMessages.dockBeingShy : Constants.StatusMessages.dockVisible
-            statusLabel.textColor = .tertiaryLabelColor
         } else {
-            statusLabel.stringValue = Constants.StatusMessages.externalDisplayNotConnected
+            statusLabel.stringValue = Constants.StatusMessages.dockVisible
             statusLabel.textColor = .tertiaryLabelColor
         }
     }
