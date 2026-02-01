@@ -12,18 +12,7 @@
 	</array>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>com.apple.security.app-sandbox</key>
-	<false/>
-	<key>com.apple.security.scripting-targets</key>
-	<dict>
-		<key>com.apple.dock</key>
-		<array>
-			<string>com.apple.mail.compose</string>
-		</array>
-	</dict>
-	<key>com.apple.security.temporary-exception.apple-events</key>
-	<array>
-		<string>com.apple.systemevents</string>
-	</array>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>The Shy Dock needs to control System Events to manage Dock auto-hide settings.</string>
 </dict>
 </plist>
