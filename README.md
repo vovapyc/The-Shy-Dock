@@ -28,7 +28,9 @@ A beautiful, dead-simple macOS menu bar utility that intelligently manages your 
 - **Integrated Permission Status**: Shows permission requirements in the status area when needed
 
 ## 🔐 Permissions
-The Shy Dock requires **Accessibility permissions** to control the dock. The app automatically:
+The Shy Dock runs in **App Sandbox** and uses **AppleScript via System Events** to control the Dock. On first launch, macOS will prompt you to allow the app to control System Events.
+
+The app also requests **Accessibility permissions** for enhanced dock control. The app automatically:
 - Detects when permissions are missing
 - Shows clear indicators in the menu bar and settings
 - Provides one-click access to System Preferences
@@ -45,7 +47,9 @@ The Shy Dock requires **Accessibility permissions** to control the dock. The app
 ## 🛠 Technical Details
 - **Built with**: SwiftUI + AppKit
 - **Architecture**: Menu bar only app (LSUIElement = true)
-- **Permissions**: Requires Accessibility permissions for dock control
+- **Sandboxed**: App Sandbox enabled for App Store distribution
+- **Dock Control**: AppleScript via NSAppleScript and System Events
+- **Permissions**: Apple Events (System Events) + Accessibility
 - **Compatibility**: macOS 14.5+
 - **Resolution Detection**: Real-time display monitoring with configurable thresholds
 
