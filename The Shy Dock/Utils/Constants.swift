@@ -50,15 +50,6 @@ enum Constants {
         static let labelSize: CGFloat = 12
     }
     
-    // MARK: - System
-    enum System {
-        static let dockPreferenceDomain = "com.apple.dock"
-        static let dockAutohideKey = "autohide"
-        static let defaultsCommand = "/usr/bin/defaults"
-        static let killallCommand = "/usr/bin/killall"
-        static let dockProcess = "Dock"
-    }
-    
     // MARK: - Menu Items
     enum MenuItems {
         static let toggleDock = "Toggle Dock"

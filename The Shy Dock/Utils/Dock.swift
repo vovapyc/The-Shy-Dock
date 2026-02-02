@@ -21,38 +21,26 @@ func requestAccessibilityPermission() -> Bool {
     return AXIsProcessTrustedWithOptions(options)
 }
 
-/// Returns the current Dock auto-hide state by reading system preferences
+/// Returns the current Dock auto-hide state by querying System Events via AppleScript
 /// - Returns: `true` if auto-hide is enabled, `false` otherwise
 func isDockAutohideEnabled() -> Bool {
-    let key = "autohide" as CFString
-    let domain = "com.apple.dock" as CFString
-    var keyExists: DarwinBoolean = false
-    let enabled = CFPreferencesGetAppBooleanValue(key, domain, &keyExists)
-    return enabled
+    let script = NSAppleScript(source: "tell application \"System Events\" to get autohide of dock preferences")
+    var error: NSDictionary?
+    let result = script?.executeAndReturnError(&error)
+    if let error = error {
+        print("Failed to read dock autohide state: \(error)")
+        return false
+    }
+    return result?.booleanValue ?? false
 }
 
-/// Sets the Dock auto-hide preference
+/// Sets the Dock auto-hide preference via AppleScript and System Events
 /// - Parameter hide: Whether to enable auto-hide
 func setDockAutohide(_ hide: Bool) {
-    guard hasAccessibilityPermission() else {
-        print("Accessibility permission not granted")
-        return
-    }
-
-    let defaultsTask = Process()
-    defaultsTask.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
-    defaultsTask.arguments = ["write", "com.apple.dock", "autohide", "-bool", hide ? "true" : "false"]
-
-    do {
-        try defaultsTask.run()
-        defaultsTask.waitUntilExit()
-
-        let killTask = Process()
-        killTask.executableURL = URL(fileURLWithPath: "/usr/bin/killall")
-        killTask.arguments = ["Dock"]
-        try killTask.run()
-        killTask.waitUntilExit()
-    } catch {
+    let script = NSAppleScript(source: "tell application \"System Events\" to set autohide of dock preferences to \(hide)")
+    var error: NSDictionary?
+    script?.executeAndReturnError(&error)
+    if let error = error {
         print("Failed to set dock autohide: \(error)")
     }
 }
