@@ -7,6 +7,9 @@
 
 import Foundation
 import ApplicationServices
+import os
+
+private let logger = Logger(subsystem: "com.vovawed.TheShyDock", category: "Dock")
 
 /// Checks if accessibility permissions are granted without prompting the user
 /// - Returns: `true` if permissions are granted, `false` otherwise
@@ -28,7 +31,7 @@ func isDockAutohideEnabled() -> Bool {
     var error: NSDictionary?
     let result = script?.executeAndReturnError(&error)
     if let error = error {
-        print("Failed to read dock autohide state: \(error)")
+        logger.error("Failed to read dock autohide state: \(error)")
         return false
     }
     return result?.booleanValue ?? false
@@ -41,7 +44,7 @@ func setDockAutohide(_ hide: Bool) {
     var error: NSDictionary?
     script?.executeAndReturnError(&error)
     if let error = error {
-        print("Failed to set dock autohide: \(error)")
+        logger.error("Failed to set dock autohide: \(error)")
     }
 }
 
