@@ -28,7 +28,12 @@ final class SettingsWindow: NSWindowController {
     
     init(manager: MenuBarManager) {
         self.manager = manager
-        
+
+        var styleMask: NSWindow.StyleMask = [.titled, .closable]
+        if #available(macOS 26.0, *) {
+            styleMask.insert(.fullSizeContentView)
+        }
+
         let window = NSWindow(
             contentRect: NSRect(
                 x: 0,
@@ -36,18 +41,24 @@ final class SettingsWindow: NSWindowController {
                 width: Constants.UI.settingsWindowWidth,
                 height: Constants.UI.settingsWindowHeight
             ),
-            styleMask: [.titled, .closable],
+            styleMask: styleMask,
             backing: .buffered,
             defer: false
         )
-        
+
         super.init(window: window)
-        
+
         window.title = Constants.App.settingsTitle
         window.center()
         window.delegate = self
-        window.backgroundColor = NSColor.controlBackgroundColor
-        
+
+        if #available(macOS 26.0, *) {
+            window.titlebarAppearsTransparent = true
+            window.titleVisibility = .hidden
+        } else {
+            window.backgroundColor = NSColor.controlBackgroundColor
+        }
+
         setupUI()
         updateUI()
         setupObservations()
@@ -154,8 +165,8 @@ final class SettingsWindow: NSWindowController {
         statusSection: NSView
     ) {
         NSLayoutConstraint.activate([
-            // Main view fills window
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            // Main view fills window, respecting safe area for titlebar on macOS Tahoe
+            mainView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
