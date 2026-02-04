@@ -41,6 +41,13 @@ final class MenuBarManager: NSObject, ObservableObject {
         permissionCheckTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
             self?.checkAccessibilityPermission()
         }
+
+        // Open settings on manual launch (not login item)
+        DispatchQueue.main.async { [weak self] in
+            if !AppDelegate.isLoginItemLaunch {
+                self?.openSettings()
+            }
+        }
     }
 
     deinit {
