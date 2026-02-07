@@ -32,11 +32,6 @@
 				Disconnect — it hides again.
 			</p>
 
-			<div class="flex flex-col gap-3 text-text-secondary dark:text-text-secondary-dark text-base">
-				<p>Filter by resolution — only the displays you care about.</p>
-				<p>Starts at login, lives in your menu bar.</p>
-			</div>
-
 			<img
 				src="{base}/app-icon.png"
 				alt="The Shy Dock"
