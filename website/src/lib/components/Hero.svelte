@@ -15,11 +15,11 @@
 				: 'opacity-0 translate-y-6'}"
 		>
 			<h1 class="font-serif text-5xl md:text-7xl leading-[1.05] tracking-tight mb-6">
-				Your dock, only when you need it.
+				Make your dock shy 🙈
 			</h1>
 
-			<p class="text-lg text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-md mx-auto mb-12">
-				Shows your Dock when an external monitor is connected. Hides it when you're on the laptop alone.
+			<p class="text-lg text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-lg mx-auto mb-12">
+				A tiny macOS menu bar app that auto-hides your Dock when you're on the laptop alone and brings it back when an external monitor is connected.
 			</p>
 
 			<a

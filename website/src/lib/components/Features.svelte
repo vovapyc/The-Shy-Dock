@@ -28,13 +28,13 @@
 	>
 		<div class="border-t border-border dark:border-night-border pt-12 md:pt-16 space-y-10 text-center">
 			<p class="font-serif text-2xl md:text-3xl leading-relaxed tracking-tight">
-				Connect an external display — your dock appears.
-				Disconnect — it hides.
+				Connect a display — it peeks out. 👀<br />
+				Disconnect — it hides again.
 			</p>
 
 			<div class="flex flex-col gap-3 text-text-secondary dark:text-text-secondary-dark text-base">
-				<p>Set minimum resolution to filter which displays trigger it.</p>
-				<p>Starts at login. Lives in your menu bar.</p>
+				<p>Filter by resolution — only the displays you care about.</p>
+				<p>Starts at login, lives in your menu bar.</p>
 			</div>
 
 			<img

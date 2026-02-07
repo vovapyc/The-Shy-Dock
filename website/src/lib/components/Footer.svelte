@@ -1,7 +1,7 @@
 <footer class="py-10 px-6 border-t border-border dark:border-night-border">
 	<div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
 		<p class="text-sm text-text-secondary dark:text-text-secondary-dark">
-			Made by
+			Made with 🤫 by
 			<a
 				href="https://byvova.com"
 				target="_blank"
