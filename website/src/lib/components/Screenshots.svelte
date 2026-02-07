@@ -28,7 +28,7 @@
 	>
 		<div class="flex items-center gap-8 md:gap-14 max-w-4xl mx-auto">
 			<!-- Text on the left -->
-			<p class="hidden md:block font-serif text-lg text-text-tertiary dark:text-text-tertiary-dark leading-relaxed max-w-[10rem] -rotate-2">
+			<p class="hidden md:block font-serif text-lg text-text-tertiary leading-relaxed max-w-[10rem] -rotate-2">
 				simple settings<br />nothing more 👌
 			</p>
 

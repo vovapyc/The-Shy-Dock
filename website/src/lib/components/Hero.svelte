@@ -7,7 +7,7 @@
 	});
 </script>
 
-<section class="pt-32 pb-16 px-6 md:pt-48 md:pb-24">
+<section class="pt-20 pb-16 px-6 md:pt-28 md:pb-24">
 	<div class="max-w-2xl mx-auto text-center">
 		<div
 			class="transition-all duration-700 ease-out {visible
@@ -18,7 +18,7 @@
 				Make your dock shy 🙈
 			</h1>
 
-			<p class="text-lg text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-lg mx-auto mb-12">
+			<p class="text-lg text-text-secondary leading-relaxed max-w-lg mx-auto mb-12">
 				A tiny macOS menu bar app that auto-hides your Dock when you're on the laptop alone and brings it back when an external monitor is connected.
 			</p>
 
@@ -32,7 +32,7 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
 					Download for macOS
 				</a>
-				<span class="text-sm text-text-tertiary dark:text-text-tertiary-dark">macOS 14.5+</span>
+				<span class="text-sm text-text-tertiary">macOS 14.5+</span>
 			</div>
 		</div>
 	</div>

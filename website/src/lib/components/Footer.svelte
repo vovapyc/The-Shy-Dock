@@ -2,7 +2,7 @@
 	import { base } from '$app/paths';
 </script>
 
-<footer class="py-16 md:py-24 px-6 border-t border-border dark:border-night-border">
+<footer class="py-16 md:py-24 px-6 border-t border-border">
 	<div class="max-w-md mx-auto text-center">
 		<img
 			src="{base}/app-icon.png"
@@ -13,7 +13,7 @@
 		<p class="font-serif text-xl md:text-2xl tracking-tight mb-3">
 			Like it? Support the project.
 		</p>
-		<p class="text-sm text-text-secondary dark:text-text-secondary-dark mb-8">
+		<p class="text-sm text-text-secondary mb-8">
 			Star on GitHub, share with a friend, or just say hi.
 		</p>
 
@@ -22,7 +22,7 @@
 				href="https://github.com/vovapyc/The-Shy-Dock"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-sm text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors underline decoration-dotted underline-offset-4"
+				class="text-sm text-text-secondary hover:text-text-primary transition-colors underline decoration-dotted underline-offset-4"
 			>
 				github.com
 			</a>
@@ -30,9 +30,17 @@
 				href="https://byvova.com"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-sm text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors underline decoration-dotted underline-offset-4"
+				class="text-sm text-text-secondary hover:text-text-primary transition-colors underline decoration-dotted underline-offset-4"
 			>
 				byvova.com
+			</a>
+			<a
+				href="https://byvova.com/the-shy-dock-privacy"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-sm text-text-secondary hover:text-text-primary transition-colors underline decoration-dotted underline-offset-4"
+			>
+				privacy
 			</a>
 		</div>
 	</div>
