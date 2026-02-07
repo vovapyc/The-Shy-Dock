@@ -27,11 +27,6 @@
 			: 'opacity-0 translate-y-6'}"
 	>
 		<div class="border-t border-border dark:border-night-border pt-12 md:pt-16 space-y-10 text-center">
-			<p class="font-serif text-2xl md:text-3xl leading-relaxed tracking-tight">
-				Connect a display — it peeks out. 👀<br />
-				Disconnect — it hides again.
-			</p>
-
 			<img
 				src="{base}/app-icon.png"
 				alt="The Shy Dock"
