@@ -26,24 +26,25 @@
 			? 'opacity-100 translate-y-0'
 			: 'opacity-0 translate-y-6'}"
 	>
-		<p class="text-center font-serif text-2xl md:text-3xl tracking-tight mb-14">
-			Simple settings. Nothing more.
-		</p>
+		<div class="flex items-center gap-8 md:gap-14 max-w-4xl mx-auto">
+			<!-- Text on the left -->
+			<p class="hidden md:block font-serif text-lg text-text-tertiary dark:text-text-tertiary-dark leading-relaxed max-w-[10rem] -rotate-2">
+				simple settings<br />nothing more 👌
+			</p>
 
-		<div class="relative mx-auto max-w-md md:max-w-lg">
-			<!-- Settings window — slight tilt -->
-			<img
-				src="{base}/screenshot-app.png"
-				alt="The Shy Dock settings window"
-				class="relative z-10 rounded-2xl w-full shadow-lg -rotate-1"
-			/>
-
-			<!-- Menu bar — opposite tilt, overlapping bottom-right -->
-			<img
-				src="{base}/screenshot-menubar.png"
-				alt="The Shy Dock menu bar"
-				class="absolute -bottom-8 right-0 md:-right-16 z-20 w-60 md:w-80 rounded-xl shadow-xl rotate-2"
-			/>
+			<!-- Screenshots -->
+			<div class="relative flex-1 max-w-sm md:max-w-md">
+				<img
+					src="{base}/screenshot-app.png"
+					alt="The Shy Dock settings window"
+					class="relative z-10 rounded-2xl w-full shadow-lg -rotate-1"
+				/>
+				<img
+					src="{base}/screenshot-menubar.png"
+					alt="The Shy Dock menu bar"
+					class="absolute -bottom-8 right-0 md:-right-16 z-20 w-60 md:w-80 rounded-xl shadow-xl rotate-2"
+				/>
+			</div>
 		</div>
 	</div>
 </section>
