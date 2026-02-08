@@ -6,8 +6,15 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
+RUN if [ -n "$BASE_PATH" ]; then \
+      mkdir -p /out${BASE_PATH} && \
+      cp -r build/* /out${BASE_PATH}/; \
+    else \
+      mkdir -p /out && \
+      cp -r build/* /out/; \
+    fi
 
 FROM caddy:2-alpine
-COPY --from=build /app/build /srv
+COPY --from=build /out /srv
 COPY Caddyfile /etc/caddy/Caddyfile
 EXPOSE 80
