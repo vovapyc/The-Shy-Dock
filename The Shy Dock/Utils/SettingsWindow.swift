@@ -108,13 +108,6 @@ final class SettingsWindow: NSWindowController {
             }
             .store(in: &cancellables)
         
-        manager.$hasAccessibilityPermission
-            .sink { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
-            }
-            .store(in: &cancellables)
     }
     
     // MARK: - UI Setup
@@ -542,15 +535,8 @@ final class SettingsWindow: NSWindowController {
     }
     
     private func updateStatusText() {
-        guard let manager = manager else { return }
-
-        if !manager.hasAccessibilityPermission {
-            statusLabel.stringValue = Constants.StatusMessages.permissionRequired
-            statusLabel.textColor = .systemOrange
-        } else {
-            statusLabel.stringValue = "Toggle dock anytime with ⌘⌥D"
-            statusLabel.textColor = .tertiaryLabelColor
-        }
+        statusLabel.stringValue = "Toggle dock anytime with ⌘⌥D"
+        statusLabel.textColor = .tertiaryLabelColor
     }
 }
 

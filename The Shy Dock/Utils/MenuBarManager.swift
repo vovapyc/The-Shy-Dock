@@ -5,7 +5,6 @@
 //  Created by Vova on 2024-09-07.
 //
 
-import SwiftUI
 import AppKit
 import ServiceManagement
 
@@ -16,14 +15,11 @@ final class MenuBarManager: NSObject, ObservableObject {
     
     private var statusItem: NSStatusItem?
     var settingsWindow: SettingsWindow?
-    private var permissionCheckTimer: Timer?
-
     @Published var isExternalDisplayConnected = false
     @Published var isDockHidden = false
     @Published var minResolutionWidth = Constants.Defaults.minResolutionWidth
     @Published var minResolutionHeight = Constants.Defaults.minResolutionHeight
     @Published var launchAtLogin = Constants.Defaults.launchAtLogin
-    @Published var hasAccessibilityPermission = false
 
     private let userDefaults = UserDefaults.standard
     
@@ -33,14 +29,8 @@ final class MenuBarManager: NSObject, ObservableObject {
         super.init()
         setupMenuBar()
         loadSettings()
-        checkAccessibilityPermission()
         setupDisplayMonitoring()
         updateDisplayStatus()
-        
-        // Check permission status periodically
-        permissionCheckTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
-            self?.checkAccessibilityPermission()
-        }
 
         // Open settings on manual launch (not login item)
         DispatchQueue.main.async { [weak self] in
@@ -51,11 +41,6 @@ final class MenuBarManager: NSObject, ObservableObject {
     }
 
     deinit {
-        // Invalidate timer
-        permissionCheckTimer?.invalidate()
-        permissionCheckTimer = nil
-
-        // Clean up display monitoring
         CGDisplayRemoveReconfigurationCallback(displayReconfigurationCallback, Unmanaged.passUnretained(self).toOpaque())
     }
     
@@ -72,30 +57,14 @@ final class MenuBarManager: NSObject, ObservableObject {
 
         statusItem.button?.title = ""
 
-        let symbolName: String
-        let isDisabled: Bool
-
-        if !hasAccessibilityPermission {
-            symbolName = Constants.SFSymbols.exclamationmarkTriangle
-            isDisabled = true
-        } else {
-            symbolName = isDockHidden ? Constants.SFSymbols.dockRectangleSlash : Constants.SFSymbols.dockRectangle
-            isDisabled = false
-        }
+        let symbolName = isDockHidden ? Constants.SFSymbols.dockRectangleSlash : Constants.SFSymbols.dockRectangle
 
         if let image = NSImage(systemSymbolName: symbolName, accessibilityDescription: Constants.App.name) {
             image.isTemplate = true
             statusItem.button?.image = image
-            statusItem.button?.appearsDisabled = isDisabled
         }
 
-        let tooltipText: String
-        if !hasAccessibilityPermission {
-            tooltipText = Constants.Tooltips.permissionRequired
-        } else {
-            tooltipText = isDockHidden ? Constants.Tooltips.hidden : Constants.Tooltips.visible
-        }
-        statusItem.button?.toolTip = tooltipText
+        statusItem.button?.toolTip = isDockHidden ? Constants.Tooltips.hidden : Constants.Tooltips.visible
     }
     
     private func createMenu() {
@@ -109,31 +78,17 @@ final class MenuBarManager: NSObject, ObservableObject {
         
         menu.addItem(NSMenuItem.separator())
         
-        // Only show permission-related menu items if there's a problem
-        if !hasAccessibilityPermission {
-            // Grant permission option
-            let grantPermissionMenuItem = NSMenuItem(
-                title: Constants.SettingsLabels.grantPermission,
-                action: #selector(requestPermission),
-                keyEquivalent: ""
-            )
-            grantPermissionMenuItem.target = self
-            menu.addItem(grantPermissionMenuItem)
-            
-            menu.addItem(NSMenuItem.separator())
-        } else {
-            // Manual toggle (only available with permission)
-            let toggleMenuItem = NSMenuItem(
-                title: Constants.MenuItems.toggleDock,
-                action: #selector(toggleDockManually),
-                keyEquivalent: Constants.KeyboardShortcuts.toggleDockKey
-            )
-            toggleMenuItem.keyEquivalentModifierMask = Constants.KeyboardShortcuts.toggleDockModifiers
-            toggleMenuItem.target = self
-            menu.addItem(toggleMenuItem)
+        // Manual toggle
+        let toggleMenuItem = NSMenuItem(
+            title: Constants.MenuItems.toggleDock,
+            action: #selector(toggleDockManually),
+            keyEquivalent: Constants.KeyboardShortcuts.toggleDockKey
+        )
+        toggleMenuItem.keyEquivalentModifierMask = Constants.KeyboardShortcuts.toggleDockModifiers
+        toggleMenuItem.target = self
+        menu.addItem(toggleMenuItem)
 
-            menu.addItem(NSMenuItem.separator())
-        }
+        menu.addItem(NSMenuItem.separator())
         
         // Settings (always available)
         let settingsMenuItem = NSMenuItem(
@@ -165,9 +120,7 @@ final class MenuBarManager: NSObject, ObservableObject {
     }
     
     private func getStatusText() -> String {
-        if !hasAccessibilityPermission {
-            return Constants.StatusMessages.permissionRequired
-        } else if isExternalDisplayConnected {
+        if isExternalDisplayConnected {
             return Constants.StatusMessages.displayConnectedDockShowing
         } else {
             return Constants.StatusMessages.noDisplayDockHidden
@@ -225,44 +178,6 @@ final class MenuBarManager: NSObject, ObservableObject {
     
     @objc private func quitApp() {
         NSApplication.shared.terminate(nil)
-    }
-    
-    @objc func requestPermission() {
-        _ = requestAccessibilityPermission()
-        
-        // Show an alert explaining what to do
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.showPermissionAlert()
-        }
-    }
-    
-    // MARK: - Permission Management
-    
-    private func checkAccessibilityPermission() {
-        let newPermissionStatus = The_Shy_Dock.hasAccessibilityPermission()
-        if newPermissionStatus != self.hasAccessibilityPermission {
-            self.hasAccessibilityPermission = newPermissionStatus
-            refreshMenu()
-        }
-    }
-    
-    private func showPermissionAlert() {
-        let alert = NSAlert()
-        alert.messageText = Constants.ErrorMessages.permissionPromptTitle
-        alert.informativeText = Constants.ErrorMessages.permissionPromptMessage
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: Constants.SettingsLabels.openSystemPreferences)
-        alert.addButton(withTitle: "OK")
-        
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            openSystemPreferences()
-        }
-    }
-    
-    private func openSystemPreferences() {
-        let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!
-        NSWorkspace.shared.open(url)
     }
     
     // MARK: - Private Helper Methods

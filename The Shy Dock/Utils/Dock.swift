@@ -6,23 +6,9 @@
 //
 
 import Foundation
-import ApplicationServices
 import os
 
 private let logger = Logger(subsystem: "com.vovawed.TheShyDock", category: "Dock")
-
-/// Checks if accessibility permissions are granted without prompting the user
-/// - Returns: `true` if permissions are granted, `false` otherwise
-func hasAccessibilityPermission() -> Bool {
-    return AXIsProcessTrusted()
-}
-
-/// Prompts the user to grant accessibility permissions
-/// - Returns: `true` if permissions are already granted, `false` if prompt was shown
-func requestAccessibilityPermission() -> Bool {
-    let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true] as CFDictionary
-    return AXIsProcessTrustedWithOptions(options)
-}
 
 /// Returns the current Dock auto-hide state by querying System Events via AppleScript
 /// - Returns: `true` if auto-hide is enabled, `false` otherwise
@@ -57,5 +43,3 @@ func hideDock() {
 func showDock() {
     setDockAutohide(false)
 }
-
-
