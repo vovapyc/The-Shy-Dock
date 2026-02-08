@@ -6,46 +6,50 @@
 //
 
 import Foundation
-import ApplicationServices
 import os
 
 private let logger = Logger(subsystem: "com.vovawed.TheShyDock", category: "Dock")
+private let dockQueue = DispatchQueue(label: "com.vovawed.TheShyDock.dock", qos: .userInitiated)
+private let maxRetries = 3
+private let retryDelay: TimeInterval = 1.0
 
-/// Checks if accessibility permissions are granted without prompting the user
-/// - Returns: `true` if permissions are granted, `false` otherwise
-func hasAccessibilityPermission() -> Bool {
-    return AXIsProcessTrusted()
-}
+/// Runs an AppleScript on a background queue with retries for error -600
+private func runAppleScript(_ source: String, completion: @escaping (NSAppleEventDescriptor?) -> Void) {
+    dockQueue.async {
+        for attempt in 1...maxRetries {
+            let script = NSAppleScript(source: source)
+            var error: NSDictionary?
+            let result = script?.executeAndReturnError(&error)
 
-/// Prompts the user to grant accessibility permissions
-/// - Returns: `true` if permissions are already granted, `false` if prompt was shown
-func requestAccessibilityPermission() -> Bool {
-    let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true] as CFDictionary
-    return AXIsProcessTrustedWithOptions(options)
+            if let error = error {
+                let errorCode = error[NSAppleScript.errorNumber] as? Int ?? 0
+                if errorCode == -600 && attempt < maxRetries {
+                    logger.info("System Events not ready, retrying (\(attempt)/\(maxRetries))...")
+                    Thread.sleep(forTimeInterval: retryDelay)
+                    continue
+                }
+                logger.error("AppleScript failed: \(error)")
+                DispatchQueue.main.async { completion(nil) }
+                return
+            }
+
+            DispatchQueue.main.async { completion(result) }
+            return
+        }
+        DispatchQueue.main.async { completion(nil) }
+    }
 }
 
 /// Returns the current Dock auto-hide state by querying System Events via AppleScript
-/// - Returns: `true` if auto-hide is enabled, `false` otherwise
-func isDockAutohideEnabled() -> Bool {
-    let script = NSAppleScript(source: "tell application \"System Events\" to get autohide of dock preferences")
-    var error: NSDictionary?
-    let result = script?.executeAndReturnError(&error)
-    if let error = error {
-        logger.error("Failed to read dock autohide state: \(error)")
-        return false
+func isDockAutohideEnabled(completion: @escaping (Bool) -> Void) {
+    runAppleScript("tell application \"System Events\" to get autohide of dock preferences") { result in
+        completion(result?.booleanValue ?? false)
     }
-    return result?.booleanValue ?? false
 }
 
 /// Sets the Dock auto-hide preference via AppleScript and System Events
-/// - Parameter hide: Whether to enable auto-hide
 func setDockAutohide(_ hide: Bool) {
-    let script = NSAppleScript(source: "tell application \"System Events\" to set autohide of dock preferences to \(hide)")
-    var error: NSDictionary?
-    script?.executeAndReturnError(&error)
-    if let error = error {
-        logger.error("Failed to set dock autohide: \(error)")
-    }
+    runAppleScript("tell application \"System Events\" to set autohide of dock preferences to \(hide)") { _ in }
 }
 
 /// Hides the Dock by enabling auto-hide
@@ -57,5 +61,3 @@ func hideDock() {
 func showDock() {
     setDockAutohide(false)
 }
-
-

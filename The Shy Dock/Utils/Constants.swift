@@ -66,15 +66,12 @@ enum Constants {
         static let autoHideDisabled = "Auto-hide disabled"
         static let displayConnectedDockShowing = "Display connected • Dock showing"
         static let noDisplayDockHidden = "No display • Dock hidden"
-        static let permissionRequired = "⚠️ Accessibility permission required"
-        static let permissionGranted = "✅ Accessibility permission granted"
     }
     
     // MARK: - SF Symbols
     enum SFSymbols {
         static let dockRectangle = "dock.rectangle"
         static let dockRectangleSlash = "dock.rectangle.slash"
-        static let exclamationmarkTriangle = "exclamationmark.triangle"
     }
     
     // MARK: - Keyboard Shortcuts
@@ -90,7 +87,6 @@ enum Constants {
         static let disabled = "The Shy Dock - Disabled"
         static let hidden = "The Shy Dock - Hidden (no external display)"
         static let visible = "The Shy Dock - Visible (external display connected)"
-        static let permissionRequired = "The Shy Dock - Accessibility permission required"
     }
     
     // MARK: - Settings Labels
@@ -100,10 +96,6 @@ enum Constants {
         static let highResolutionOnly = "High-resolution displays only"
         static let helpText = "When disabled, any external display will trigger"
         static let minimumResolution = "Minimum resolution:"
-        static let permissionStatus = "Accessibility Permission:"
-        static let permissionRequired = "Required for dock control"
-        static let grantPermission = "Grant Permission"
-        static let openSystemPreferences = "Open System Preferences"
         
         // Preset buttons
         static let preset1080p = "1080p"
@@ -132,9 +124,6 @@ enum Constants {
     
     // MARK: - Error Messages
     enum ErrorMessages {
-        static let accessibilityPermissionDenied = "Accessibility permission not granted"
         static let launchAtLoginFailed = "Failed to update launch at login"
-        static let permissionPromptTitle = "Accessibility Permission Required"
-        static let permissionPromptMessage = "The Shy Dock needs accessibility permission to control the dock. Please grant permission in System Preferences > Privacy & Security > Accessibility."
     }
 } 
