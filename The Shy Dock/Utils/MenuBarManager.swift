@@ -143,9 +143,8 @@ final class MenuBarManager: NSObject, ObservableObject {
         refreshMenu()
         
         // Verify the actual system state after a short delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.updateDockStatus()
-            self.refreshMenu()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.updateDockStatus()
         }
     }
     
@@ -264,7 +263,10 @@ final class MenuBarManager: NSObject, ObservableObject {
     }
     
     private func updateDockStatus() {
-        isDockHidden = isDockAutohideEnabled()
+        isDockAutohideEnabled { [weak self] hidden in
+            self?.isDockHidden = hidden
+            self?.refreshMenu()
+        }
     }
     
     // MARK: - Settings Management
