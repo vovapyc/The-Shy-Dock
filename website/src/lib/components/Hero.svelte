@@ -24,7 +24,7 @@
 
 			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
 				<a
-					href="https://github.com/vovapyc/The-Shy-Dock/releases/latest"
+					href="https://github.com/vovapyc/The-Shy-Dock/releases/download/v1.0/The.Shy.Dock.dmg"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="inline-flex items-center gap-3 bg-gold text-white font-medium px-10 py-4 rounded-full text-lg transition-all hover:bg-gold-hover hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gold/20"
