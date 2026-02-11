@@ -15,6 +15,7 @@ export const load = async () => {
         capture_exceptions: true, // This enables capturing exceptions using Error Tracking
       }
     );
+    posthog.register({ project: 'the-shy-dock' });
   }
   return;
 };
