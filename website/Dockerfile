@@ -1,4 +1,4 @@
-FROM node:22.23.4-alpine AS build
+FROM node:22.23.5-alpine AS build
 WORKDIR /app
 ARG BASE_PATH=""
 ENV BASE_PATH=$BASE_PATH
@@ -14,7 +14,7 @@ RUN if [ -n "$BASE_PATH" ]; then \
       cp -r build/* /out/; \
     fi
 
-FROM caddy:2-alpine
+FROM caddy:2.11.9-alpine
 COPY --from=build /out /srv
 COPY Caddyfile /etc/caddy/Caddyfile
 EXPOSE 80
